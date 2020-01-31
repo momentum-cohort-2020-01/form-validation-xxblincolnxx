@@ -18,11 +18,18 @@ const ccv = document.querySelector('#ccv')
 const expiration = document.querySelector('#expiration')
 const submitButton = document.querySelector('#submit-button')
 
+let currentTime = moment()
+// let compareCarYear = moment(carYear.value, 'YYYY')
+// let compareStartDate = moment(startDate.value, 'MM-DD-YYYY')
+
 // GENERAL SHEET FUNCTIONS
 
 parkingForm.addEventListener('submit', function (e) {
   e.preventDefault()
   checkEmptyFields()
+  checkCarYear()
+  checkStartDate()
+  checkDay()
 })
 
 function markInvalid(element) {
@@ -57,3 +64,41 @@ function checkEmptyFields() {
     }
   }
 }
+
+// INDIVIDUAL FIELD FUNCTIONS
+
+        // * Car year must be a number.
+        // * Car year must be after 1900.
+        // * Car year cannot be in the future.
+        // * Date parking must be in the future.
+        // * Number of days must be a number.
+        // * Number of days must be between 1 and 30.
+// * CVV must be a three-digit number.
+
+function checkCarYear(){
+  if(isNaN(carYear.value)){
+    markInvalid(carYear);
+  } else if (carYear.value<1900){ //EVAL RELATIVE TO 1900
+    markInvalid(carYear)
+  } else if (currentTime.isBefore(carYear.value)){ //EVAL FUTURE
+    markInvalid(carYear)
+  }
+  else {
+    carYear.parentElement.classList.add ("input-valid")
+  }
+}
+
+function checkStartDate(){
+  if(currentTime.isAfter(startDate.value)){
+    markInvalid(startDate)
+  }
+}
+
+function checkDay (){
+  if (isNaN(days.value)){
+    markInvalid(days)
+  } else if (days.value<1 || days.value>30){
+    markInvalid(days)
+  }
+}
+
