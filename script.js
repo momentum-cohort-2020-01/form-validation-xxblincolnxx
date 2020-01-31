@@ -14,11 +14,15 @@ const carModel = document.querySelector('#car-model')
 const startDate = document.querySelector('#start-date')
 const days = document.querySelector('#days')
 const creditCard = document.querySelector('#credit-card')
-const ccv = document.querySelector('#ccv')
+const cvv = document.querySelector('#cvv')
 const expiration = document.querySelector('#expiration')
 const submitButton = document.querySelector('#submit-button')
 
 let currentTime = moment()
+
+
+
+
 // let compareCarYear = moment(carYear.value, 'YYYY')
 // let compareStartDate = moment(startDate.value, 'MM-DD-YYYY')
 
@@ -30,6 +34,8 @@ parkingForm.addEventListener('submit', function (e) {
   checkCarYear()
   checkStartDate()
   checkDay()
+  checkCvv()
+  formValidate()
 })
 
 function markInvalid(element) {
@@ -52,6 +58,17 @@ function markValid(element) {
   }
 }
 
+// TOTAL FORM VALIDATION: 
+
+function formValidate() {
+  let invalidFields = document.querySelectorAll('.input-invalid')
+    if (invalidFields[0] === ""){
+      return true
+    } else {
+      return false
+    }
+  }
+
 // SPECIFIC VALIDATION TASKS
 
 function checkEmptyFields() {
@@ -73,7 +90,7 @@ function checkEmptyFields() {
         // * Date parking must be in the future.
         // * Number of days must be a number.
         // * Number of days must be between 1 and 30.
-// * CVV must be a three-digit number.
+        // * CVV must be a three-digit number.
 
 function checkCarYear(){
   if(isNaN(carYear.value)){
@@ -94,7 +111,7 @@ function checkStartDate(){
   }
 }
 
-function checkDay (){
+function checkDay(){
   if (isNaN(days.value)){
     markInvalid(days)
   } else if (days.value<1 || days.value>30){
@@ -102,3 +119,8 @@ function checkDay (){
   }
 }
 
+function checkCvv(){
+  if (cvv.value.length!==3){
+    markInvalid(cvv)
+  }
+}
