@@ -8,7 +8,7 @@
 const formElements = document.querySelectorAll('.validate')
 const parkingForm = document.querySelector('#parking-form')
 const name = document.querySelector('#name')
-const carYear = document.querySelector('#car-year') 
+const carYear = document.querySelector('#car-year')
 const carMake = document.querySelector('#car-make')
 const carModel = document.querySelector('#car-model')
 const startDate = document.querySelector('#start-date')
@@ -20,13 +20,13 @@ const submitButton = document.querySelector('#submit-button')
 
 // GENERAL SHEET FUNCTIONS
 
-parkingForm.addEventListener('submit', function(e){
+parkingForm.addEventListener('submit', function (e) {
   e.preventDefault()
   checkEmptyFields()
 })
 
-function markInvalid (element) {
-  if (element.parentElement.className=="input-group"){
+function markInvalid(element) {
+  if (element.parentElement.className == "input-group") {
     element.parentElement.parentElement.classList.add("input-invalid")
     element.parentElement.parentElement.classList.remove("input-valid")
   } else {
@@ -35,8 +35,8 @@ function markInvalid (element) {
   }
 }
 
-function markValid (element) {
-  if (element.parentElement.className=="input-group"){
+function markValid(element) {
+  if (element.parentElement.className == "input-group") {
     element.parentElement.parentElement.classList.add("input-valid")
     element.parentElement.parentElement.classList.remove("input-invalid")
   } else {
@@ -47,14 +47,13 @@ function markValid (element) {
 
 // SPECIFIC VALIDATION TASKS
 
-function checkEmptyFields () {
+function checkEmptyFields() {
   for (let element of formElements) {
-    if (element.value===""||"*REQUIRED FIELD*"){
+    if (element.value === "" || element.value ==="*REQUIRED FIELD*") {
       markInvalid(element)
-      element.value="*REQUIRED FIELD*"
+      element.value = "*REQUIRED FIELD*"
     } else {
       markValid(element)
     }
   }
 }
-
