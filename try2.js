@@ -15,7 +15,8 @@ const total = document.querySelector('#total')
 const errorBox = document.querySelector('#error-box')
 
 let currentTime = moment()
-
+let today = new Date(currentTime)
+let dayOfWeek = today.getDay()
 
 // SUMBIT EVENT:
 
@@ -77,11 +78,19 @@ parkingForm.addEventListener ('submit', function(e){
     markValid(cvv)
   }
   
+// CREDIT CARD CHECK:
+  if (!validateCardNumber(creditCard.value)) {
+    errorMessages.push("Please enter a valid credit card")
+    markInvalid(creditCard)
+  } else {
+    markValid(creditCard)
+  }
+
   if (errorMessages.length > 0) {
     e.preventDefault()
     errorBox.innerText = errorMessages.join('\n')
   } else {
-    alert("Form Submitted")
+    alert("Form Submitted! Due to an uprising amongst the proletariat (who have to work weekend days), we have changed the daily rate for all week and weekend days to $6 per day in order to avoid personal decapitation.\n We appologize for any inconvenience. Happy Parking!\n Your total is: $"+ days.value*6)
   }
 })
 
@@ -114,4 +123,28 @@ function markValid(element) {
 
 function calculateCharges() {
   let endDate = moment().add('days', days.value)
+}
+
+function validateCardNumber(number){
+  var regex = new RegExp("^[0-9]{16}$")
+  if (!regex.test(number)) {
+    return false
+  } else {
+    return luhnCheck(number)
+  }
+}
+
+function luhnCheck(val) {
+  var sum = 0
+  for (var i=0; i< val.length; i++){
+    var intVal = parseInt(val.substr(i,1))
+    if (i%2 == 0) {
+      intVal *= 2
+      if (intVal > 9) {
+        intVal = 1 + (intVal %10)
+      }
+    }
+    sum+= intVal
+  }
+  return (sum%10) == 0
 }
